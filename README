@@ -1,0 +1,72 @@
+SlashBlade Minecraft mod now in gmod as an e2
+
+----------------------------------------------------------------------------------------------
+
+Quick introduction:
+This is basicly vergil's yamato as an e2 that you can use on servers and single player, it's got combos, special attacks, sounds and much more
+Thirdperson addon is recommended but not required
+You also can fight vergil with this, you can even dodge his attacks but it's nearly frame perfect timing, you can also cheese it by just spamming judgement cut
+
+----------------------------------------------------------------------------------------------
+
+Features:
+Combo support
+Sheathing
+Special attacks
+Double Jump
+Summoned Swords
+Judgement Cut
+Taunting
+Blocking
+No Fall Damage
+Regeneration
+
+----------------------------------------------------------------------------------------------
+
+Requirements:
+Team Fortress 2 mounted
+Wiremod
+SProps
+Buildstruct's Wire Functions Addon Collection
+https://steamcommunity.com/sharedfiles/filedetails/?id=2959182911
+Command to enable all models for holos, wire_holograms_modelany 1
+Command to enable e2 cores, wire_expression2_extension_enable <name>
+
+----------------------------------------------------------------------------------------------
+
+Combos:
+
+Mouse1 + Mouse1 + Mouse1 - Combo 1
+
+Shift + W + Mouse1 (While on ground) - Dash Cut
+Shift + W + Mouse1 (While in air) - Downwards Cut
+Shift + S + Mouse1 - Upper Cut
+
+Mouse1 (Hold) + Mouse1 (x5) - Judgement Cut
+
+Shift + E - Summon Phantom Sword
+
+----------------------------------------------------------------------------------------------
+
+Other controls:
+
+Shift - Block
+Shift + Space - Dodge Up
+Shift + Direction Key (W,A,S,D) + Space - Dodge
+
+Space (in air) - Double Jump
+
+R - Taunt
+
+----------------------------------------------------------------------------------------------
+
+Planned Features:
+-Effects (Half way there)
+-More combos & animations
+-More special moves
+-Judgement Cut End
+-Force Edge
+-DT?
+
+----------------------------------------------------------------------------------------------
+Copied from steam workshop page
