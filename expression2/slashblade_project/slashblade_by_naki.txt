@@ -1,0 +1,769 @@
+@name SlashBlade_Project/SlashBlade by Naki
+@persist [AnimationData Animations]:table Out DodgeCounter UpwardForce ApplyForce Frame FrameTime Sheath Sheathing AnimationTime FrameCount AnimationSpeedMult W S Shift CoolDown JudgementCut JudgementCutVal JudgementCutCount BlockAttack JudgementCutOrbs:table Count CurrentFrameTime AirTime AirTime2 DamageFrame DamageData:table HealBlock SummonedSwords:table SummonedSwordDelay SummonedSwordFlip BladeIndexTest CanDoubleJump CanTaunt Dead
+@trigger none
+if(dupefinished()){reset()}
+if(first()){
+    holoCreate(1)
+    holoPos(1,owner():pos())
+    holoAng(1,ang(0,owner():weapon():angles():yaw(),0))
+    holoParent(1,owner():weapon())
+    holoAlpha(1,0)
+    
+    holoCreate(50)
+    holoPos(50,owner():pos())
+    holoAng(50,ang(0,owner():weapon():angles():yaw(),0))
+    holoParent(50,owner():weapon())
+    holoAlpha(50,0)
+    
+    holoCreate(2)
+    holoPos(2,holoEntity(1):toWorld(vec(0,6,22)))
+    holoAng(2,holoEntity(1):toWorld(ang(0,0,0)))
+    holoParent(2,holoEntity(1))
+    
+    holoCreate(3)
+    holoPos(3,holoEntity(2):toWorld(vec(0,10,0)))
+    holoAng(3,holoEntity(2):toWorld(ang(0,0,0)))
+    holoParent(3,holoEntity(2))
+    
+    holoCreate(4)
+    holoPos(4,holoEntity(3):toWorld(vec(0,10,0)))
+    holoAng(4,holoEntity(3):toWorld(ang(0,0,0)))
+    holoParent(4,holoEntity(3))
+    
+    holoCreate(5)
+    holoPos(5,holoEntity(4):toWorld(vec(0,4,0)))
+    holoAng(5,holoEntity(4):toWorld(ang(0,0,0)))
+    holoParent(5,holoEntity(4))
+    
+    holoCreate(6)
+    holoPos(6,holoEntity(1):toWorld(vec(0,-6,22)))
+    holoAng(6,holoEntity(1):toWorld(ang(0,0,0)))
+    holoParent(6,holoEntity(1))
+    
+    holoCreate(7)
+    holoPos(7,holoEntity(6):toWorld(vec(0,-10,0)))
+    holoAng(7,holoEntity(6):toWorld(ang(0,0,0)))
+    holoParent(7,holoEntity(6))
+    
+    holoCreate(8)
+    holoPos(8,holoEntity(7):toWorld(vec(0,-10,0)))
+    holoAng(8,holoEntity(7):toWorld(ang(0,0,0)))
+    holoParent(8,holoEntity(7))
+    
+    holoCreate(9)
+    holoPos(9,holoEntity(8):toWorld(vec(0,-4,0)))
+    holoAng(9,holoEntity(8):toWorld(ang(0,0,0)))
+    holoParent(9,holoEntity(8))
+    
+    holoCreate(10)
+    holoPos(10,holoEntity(9):toWorld(vec(0,0,0)))
+    holoAng(10,holoEntity(9):toWorld(ang(90,0,0)))
+    holoParent(10,9)
+    holoModel(10,"models/weapons/c_models/c_shogun_katana/c_shogun_katana.mdl")
+    
+    holoCreate(11)
+    holoPos(11,holoEntity(5):toWorld(vec(10,0,0)))
+    holoAng(11,holoEntity(5):toWorld(ang(90,180,0)))
+    holoParent(11,5)
+    holoScale(11,vec())
+    
+    local I = 12
+    holoCreate(I)
+    holoPos(I,holoEntity(I-1):toWorld(vec(0,0,5.7)))
+    holoAng(I,holoEntity(I-1):toWorld(ang(0,0,-1)))
+    holoParent(I,I-1)
+    
+    local I = I + 1
+    holoCreate(I)
+    holoPos(I,holoEntity(I-1):toWorld(vec(0,0.07,4.1)))
+    holoAng(I,holoEntity(I-1):toWorld(ang(0,0,-1.5)))
+    holoParent(I,I-1)
+    
+    local I = I + 1
+    holoCreate(I)
+    holoPos(I,holoEntity(I-1):toWorld(vec(0,0.068,4.1)))
+    holoAng(I,holoEntity(I-1):toWorld(ang(0,0,-1.4)))
+    holoParent(I,I-1)
+    
+    local I = I + 1
+    holoCreate(I)
+    holoPos(I,holoEntity(I-1):toWorld(vec(0,0.066,4.1)))
+    holoAng(I,holoEntity(I-1):toWorld(ang(0,0,-1.3)))
+    holoParent(I,I-1)
+    
+    local I = I + 1
+    holoCreate(I)
+    holoPos(I,holoEntity(I-1):toWorld(vec(0,0.064,4.1)))
+    holoAng(I,holoEntity(I-1):toWorld(ang(0,0,-1.2)))
+    holoParent(I,I-1)
+    
+    local I = I + 1
+    holoCreate(I)
+    holoPos(I,holoEntity(I-1):toWorld(vec(0,0.062,4.1)))
+    holoAng(I,holoEntity(I-1):toWorld(ang(0,0,-1.1)))
+    holoParent(I,I-1)
+    
+    local I = I + 1
+    holoCreate(I)
+    holoPos(I,holoEntity(I-1):toWorld(vec(0,0.06,4.1)))
+    holoAng(I,holoEntity(I-1):toWorld(ang(0,0,-1.0)))
+    holoParent(I,I-1)
+    
+    local I = I + 1
+    holoCreate(I)
+    holoPos(I,holoEntity(I-1):toWorld(vec(0,0.058,4.1)))
+    holoAng(I,holoEntity(I-1):toWorld(ang(0,0,-0.9)))
+    holoParent(I,I-1)
+    
+    local I = I + 1
+    holoCreate(I)
+    holoPos(I,holoEntity(I-1):toWorld(vec(0,0.056,4.1)))
+    holoAng(I,holoEntity(I-1):toWorld(ang(0,0,-0.8)))
+    holoParent(I,I-1)
+    
+    local I = I + 1
+    holoCreate(I)
+    holoPos(I,holoEntity(I-1):toWorld(vec(0,0.054,4.1)))
+    holoAng(I,holoEntity(I-1):toWorld(ang(0,0,-0.7)))
+    holoParent(I,I-1)
+    
+    local I = I + 1
+    holoCreate(I)
+    holoPos(I,holoEntity(I-1):toWorld(vec(0,0.052,4.1)))
+    holoAng(I,holoEntity(I-1):toWorld(ang(0,0,-0.6)))
+    holoParent(I,I-1)
+    
+    local I = I + 1
+    holoCreate(I)
+    holoPos(I,holoEntity(I-1):toWorld(vec(0,0.05,4.1)))
+    holoAng(I,holoEntity(I-1):toWorld(ang(0,0,-0.5)))
+    holoParent(I,I-1)
+    
+    for(I=12,25){
+        holoModel(I,"models/sprops/cuboids/height06/size_1/cube_6x6x6.mdl")
+        holoMaterial(I,"models/debug/debugwhite")
+        holoScale(I,vec(0.25,0.55,0.7))
+        holoColor(I,vec(75))
+    }
+    
+    #include "SlashBlade_Project/ANIM_Lib"
+    
+    ShowBones=0
+    AnimationSpeedMult=1.4
+    for(I=1,9){
+        holoScale(I,vec(0.2)*ShowBones)
+    }
+    
+    Animations=table()
+    Animations["idle",table]=ANIM_IDLE_01
+    Animations["atk_upper_01",table]=ANIM_UPPER_01
+    Animations["atk_upper_01_sheath",table]=ANIM_UPPER_01_SHEATH
+    Animations["atk_upper_02",table]=ANIM_UPPER_02
+    Animations["atk_upper_02_sheath",table]=ANIM_UPPER_02_SHEATH
+    Animations["atk_down_01",table]=ANIM_DOWN_01
+    Animations["atk_down_01_sheath",table]=ANIM_DOWN_01_SHEATH
+    Animations["atk_down_02",table]=ANIM_DOWN_02
+    Animations["atk_down_02_sheath",table]=ANIM_DOWN_02_SHEATH
+    Animations["atk_forward_01",table]=ANIM_FORWARD_01
+    Animations["atk_forward_01_sheath",table]=ANIM_FORWARD_01_SHEATH
+    Animations["atk_judgement_cut_start",table]=ANIM_JUDGEMENT_CUT_START
+    Animations["atk_judgement_cut",table]=ANIM_JUDGEMENT_CUT
+    Animations["atk_judgement_cut_sheath",table]=ANIM_JUDGEMENT_CUT_SHEATH
+    
+    BlockAttack=0
+    CoolDown=0
+    JudgementCut=0
+    Sheathing=0
+    FrameCount=1
+    W=S=Shift=0
+    JudgementCutCount=0
+    Count=0
+    
+    AnimationData=Animations["idle",table]
+    JudgementCutOrbs=table(0,0,0,0,0)
+    owner():plySetRunSpeed(45)
+    owner():plySetWalkSpeed(400)
+    
+    function void judgementCutSpawn(){
+        JudgementCutOrbs[JudgementCutCount,number]=0
+        holoPos(100*JudgementCutCount,owner():aimPos()+mix(-owner():eye(),owner():eyeTrace():hitNormal()*2,0.5)*20)
+        holoAng(100*JudgementCutCount,owner():eyeAngles())
+    }
+    function void judgementCutCreateOrb(Count){
+        holoCreate(100*Count)#Shell
+        holoCreate(101*Count)#Core
+        holoCreate(102*Count)#Blade1
+        holoCreate(103*Count)#Blade2
+        holoCreate(104*Count)#Blade3
+        
+        holoModel(100*Count,"models/hunter/misc/sphere2x2.mdl")
+        holoScale(100*Count,vec(0.2)*2)
+        holoMaterial(100*Count,"models/debug/debugwhite")
+        holoColor(100*Count,vec(0,175,255))
+        holoDisableShading(100*Count,1)
+        holoAlpha(100*Count,75)
+        
+        holoPos(101*Count,holoEntity(100*Count):pos())
+        holoParent(101*Count,100*Count)
+        holoModel(101*Count,"models/hunter/misc/sphere2x2.mdl")
+        holoScale(101*Count,vec(0.15)*2)
+        holoMaterial(101*Count,"models/debug/debugwhite")
+        holoColor(101*Count,vec(0,175,255)*0.5)
+        holoDisableShading(101*Count,1)
+        holoAlpha(101*Count,125)
+        
+        for(I=102,104){
+            holoPos(I*Count,holoEntity(100*Count):pos())
+            holoAng(I*Count,select((I-101),ang(25,25,25),ang(45,125,15),ang(16,-75,-90)))
+            holoParent(I*Count,100*Count)
+            holoModel(I*Count,"models/sprops/misc/alphanum/alphanum_c.mdl")
+            holoBodygroup(I*Count,0,2)
+            holoScale(I*Count,vec(1.5,0.1,1.75)*vec(1.75+(I-101)/5,1,1.75+(I-101)/5))
+            holoMaterial(I*Count,"models/debug/debugwhite")
+            holoColor(I*Count,vec(25,255,255)*1.75)
+            holoDisableShading(I*Count,1)
+            holoAlpha(I*Count,175)
+        }
+        holoPos(100*Count,entity():pos()+vec(0,0,25))
+    }
+    function void damageAreaSphere(DamageData:table){
+        local Pos=DamageData[1,vector]
+        local Size=DamageData[2,number]
+        local Amount=DamageData[3,number]
+        findExcludeEntity(owner())
+        findIncludeClass("npc_*")
+        findIncludeClass(owner():type())
+        findInSphere(Pos,Size)
+        local Find = findToArray()
+        if(Find:count()>0){
+            if(DamageData[4,entity]:isValid()){
+                DamageData[4,entity]:emitSound("weapons/knife/knife_hit"+randint(1,4)+".wav",50,100)
+            }else{
+                owner():emitSound("weapons/knife/knife_hit"+randint(1,4)+".wav",50,100)
+            }
+        }
+        foreach(I,E:entity=Find){
+            E:takeDamage(Amount,owner())
+        }
+    }
+    function void damageAreaBox(DamageData:table){
+        local Pos=DamageData[1,vector]
+        local Size=DamageData[2,vector]
+        local Amount=DamageData[3,number]
+        findExcludeEntity(owner())
+        findIncludeClass("npc_*")
+        findIncludeClass(owner():type())
+        findInBox(Pos+Size/2,Pos-Size/2)
+        local Find = findToArray()
+        if(Find:count()>0){
+            if(DamageData[4,entity]:isValid()){
+                DamageData[4,entity]:emitSound("weapons/knife/knife_hit"+randint(1,4)+".wav",50,100)
+            }else{
+                owner():emitSound("weapons/knife/knife_hit"+randint(1,4)+".wav",50,100)
+            }
+        }
+        foreach(I,E:entity=Find){
+            E:takeDamage(Amount,owner())
+        }
+    }
+    function void nextAnim(){
+        if(!Sheathing){
+            UpwardForce=200*AirTime
+            switch(AnimationData:toString()){
+                case Animations["atk_upper_01",table]:toString(),
+                    Frame=1
+                    AnimationData=Animations["atk_down_01",table]
+                    DamageFrame=3
+                    DamageData=table(owner():pos()+vec(0,0,owner():height()/2)+vec(50,0,0):rotateAroundAxis(vec(0,1,0),owner():eyeAngles():pitch()*!owner():isOnGround()):rotateAroundAxis(vec(0,0,1),owner():eyeAngles():yaw()),45,100)
+                    Frame=1
+                    FrameTime=0
+                    Sheath=0
+                    ApplyForce=UpwardForce*!owner():isOnGround()
+                    owner():emitSound("weapons/shovel/shovel_fire.wav",50,100)
+                break
+                case Animations["atk_down_01",table]:toString(),
+                    Frame=1
+                    AnimationData=Animations["atk_forward_01",table]
+                    DamageFrame=3
+                    DamageData=table(owner():pos()+vec(0,0,owner():height()/2)+vec(50,0,0):rotateAroundAxis(vec(0,1,0),owner():eyeAngles():pitch()*!owner():isOnGround()):rotateAroundAxis(vec(0,0,1),owner():eyeAngles():yaw()),45,100)
+                    Frame=1
+                    FrameTime=0
+                    Sheath=0
+                    ApplyForce=UpwardForce*!owner():isOnGround()
+                    owner():emitSound("weapons/shovel/shovel_fire.wav",50,100)
+                break
+                case Animations["atk_upper_02",table]:toString(),
+                    Frame=1
+                    AnimationData=Animations["atk_upper_01",table]
+                    DamageFrame=3
+                    DamageData=table(owner():pos()+vec(0,0,owner():height()/2)+vec(50,0,0):rotateAroundAxis(vec(0,1,0),owner():eyeAngles():pitch()*!owner():isOnGround()):rotateAroundAxis(vec(0,0,1),owner():eyeAngles():yaw()),45,100)
+                    Frame=1
+                    FrameTime=0
+                    Sheath=0
+                    ApplyForce=UpwardForce*!owner():isOnGround()
+                    owner():emitSound("weapons/shovel/shovel_fire.wav",50,100)
+                break
+                default,
+                    ApplyForce=0
+                break
+            }
+            if(ApplyForce!=0){
+                owner():plyApplyForce(vec(0,0,-owner():vel():z()+ApplyForce))
+                AirTime2=!owner():isOnGround()
+                AirTime-=0.05*!owner():isOnGround()
+            }
+        }
+    }
+    function void sheathAnim(){
+        Sheathing=1
+        Frame=1
+        FrameTime=0
+        BlockAttack=0
+        DamageFrame=0
+        Out=1
+        switch(AnimationData:toString()){
+            case Animations["atk_upper_01",table]:toString(),
+                AnimationData=Animations["atk_upper_01_sheath",table]
+            break
+            case Animations["atk_down_01",table]:toString(),
+                AnimationData=Animations["atk_down_01_sheath",table]
+            break
+            case Animations["atk_forward_01",table]:toString(),
+                AnimationData=Animations["atk_forward_01_sheath",table]
+            break
+            case Animations["atk_upper_02",table]:toString(),
+                AnimationData=Animations["atk_upper_02_sheath",table]
+            break
+            case Animations["atk_down_02",table]:toString(),
+                AnimationData=Animations["atk_down_02_sheath",table]
+            break
+            case Animations["atk_judgement_cut",table]:toString(),
+                AnimationData=Animations["atk_judgement_cut_sheath",table]
+                owner():emitSound("weapons/grenade_throw.wav",50,100)
+                Out=0
+            break
+            case Animations["atk_judgement_cut_start",table]:toString(),
+                AnimationData=Animations["atk_judgement_cut_sheath",table]
+                owner():emitSound("weapons/grenade_throw.wav",50,100)
+                Out=0
+            break
+        }
+    }
+    function void attack(){
+        if(!Sheathing&(CoolDown==0)){
+            if(!(Shift&(W|S))&!JudgementCut){
+                if(Frame>=FrameCount){
+                    nextAnim()
+                }
+            }
+            if(((Frame<=1)|(Frame>=FrameCount))&!JudgementCut&(CoolDown==0)){
+                if(S&Shift){
+                    if(AnimationData!=Animations["atk_upper_02",table]){
+                        owner():emitSound("weapons/shovel/shovel_fire.wav",50,100)
+                        Frame=0
+                        Sheath=0.5
+                        AnimationData=Animations["atk_upper_02",table]
+                        DamageFrame=0
+                        DamageData=table(owner():pos()+vec(0,0,owner():height()/2)+vec(50,0,50*owner():isOnGround()):rotateAroundAxis(vec(0,1,0),owner():eyeAngles():pitch()*!owner():isOnGround()):rotateAroundAxis(vec(0,0,1),owner():eyeAngles():yaw()),vec(55,55,125),100)
+                        damageAreaBox(DamageData)
+                        FrameTime=0
+                        CoolDown=0
+                        if(owner():isOnGround()){
+                            findExcludeEntity(owner())
+                            findIncludeClass("npc_*")
+                            findIncludeClass(owner():type())
+                            findInSphere(DamageData[1,vector],75)
+                            foreach(I,E:entity=findToArray()){
+                                if(E:isPlayer()){
+                                    E:plyApplyForce(vec(0,0,-E:vel():z()+700))
+                                }else{
+                                    E:applyForce(vec(0,0,-E:vel():z()+700))
+                                }
+                            }
+                            owner():emitSound("physics/metal/weapon_impact_soft3.wav",50,100)
+                        }
+                        owner():plyApplyForce(vec(0,0,-owner():vel():z()+(owner():isOnGround() ? 600 : 200*AirTime)))
+                        AirTime2=1
+                    }
+                }elseif(W&Shift){
+                    owner():emitSound("weapons/shovel/shovel_fire.wav",50,100)
+                    if(owner():isOnGround()){
+                        Frame=0
+                        Sheath=0.5
+                        AnimationData=Animations["atk_forward_01",table]
+                        DamageFrame=0
+                        DamageData=table(owner():pos()+vec(0,0,owner():height()/2)+vec(250,0,0):rotateAroundAxis(vec(0,0,1),owner():eyeAngles():yaw()),250,150)
+                        damageAreaSphere(DamageData)
+                        owner():emitSound("physics/metal/weapon_impact_soft3.wav",50,100)
+                        FrameTime=0
+                        owner():plyApplyForce(ang(0,owner():eyeAngles():yaw(),0):forward()*3500)
+                        owner():emitSound("physics/body/body_medium_impact_soft3.wav",50,100)
+                        CoolDown=1
+                    }else{
+                        Frame=0
+                        Sheath=0
+                        AnimationData=Animations["atk_down_02",table]
+                        DamageFrame=0
+                        AirTime2=0
+                        DamageData=table(owner():pos()+vec(0,0,owner():height()/2)+vec(50,0,0):rotateAroundAxis(vec(0,0,1),owner():eyeAngles():yaw()),vec(55,55,500),200)
+                        damageAreaBox(DamageData)
+                        FrameTime=0
+                        findExcludeEntity(owner())
+                        findIncludeClass("npc_*")
+                        findIncludeClass(owner():type())
+                        findInSphere(DamageData[1,vector],125)
+                        foreach(I,E:entity=findToArray()){
+                            if(E:isPlayer()){
+                                E:plyApplyForce(vec(0,0,-E:vel():z()-1500))
+                            }else{
+                                E:applyForce(vec(0,0,-E:vel():z()-1000))
+                            }
+                        }
+                        owner():emitSound("physics/metal/weapon_impact_soft3.wav",50,100)
+                        owner():plyApplyForce(vec(0,0,-owner():vel():z()-1500))
+                        CoolDown=1
+                    }
+                }else{
+                    if(AnimationData==Animations["idle",table]|AnimationData==Animations["atk_upper_02",table]){
+                        owner():emitSound("weapons/shovel/shovel_fire.wav",50,100)
+                        Frame=0
+                        Sheath=0
+                        AnimationData=Animations["atk_upper_01",table]
+                        DamageFrame=3
+                        DamageData=table(owner():pos()+vec(0,0,owner():height()/2)+vec(50,0,0):rotateAroundAxis(vec(0,1,0),owner():eyeAngles():pitch()*!owner():isOnGround()):rotateAroundAxis(vec(0,0,1),owner():eyeAngles():yaw()),45,125)
+                        FrameTime=0
+                        if(!owner():isOnGround()){
+                            owner():plyApplyForce(vec(0,0,-owner():vel():z()+200*AirTime))
+                        }
+                        AirTime2=!owner():isOnGround()
+                    }
+                }
+                AirTime-=0.05*!owner():isOnGround()
+            }
+        }
+    }
+    SummonedSwords=table()
+    function void summonedSword(Position:vector,ExtraData:table){
+        if(SummonedSwordDelay==0&holoCanCreate()){
+            SummonedSwordFlip=!SummonedSwordFlip
+            SummonedSwordDelay=1
+            BladeIndexTest++
+            if(BladeIndexTest>10){
+                BladeIndexTest=1
+            }
+            BladeIndex=1000+BladeIndexTest
+            PhantomBlade=holoEntity(BladeIndex):isValid() ? holoEntity(BladeIndex) : holoCreate(BladeIndex)
+            holoPos(BladeIndex,Position)
+            holoModel(BladeIndex,"models/props_c17/FurnitureDrawer001a_Shard01.mdl")
+            holoMaterial(BladeIndex,"models/debug/debugwhite")
+            holoColor(BladeIndex,vec(0,255,255))
+            holoScale(BladeIndex,vec(3))
+            holoDisableShading(BladeIndex,1)
+            holoParent(BladeIndex,holoEntity(50))
+            holoAlpha(BladeIndex,175)
+            SummonedSwords:pushTable(table(PhantomBlade,0,1,1))
+        }
+    }
+    CanTaunt=1
+    Dead=0
+    owner():plySetGravity(1000)
+    timer("create_orb",100)
+}
+if(clk("create_orb")){
+    if(Count<=4){
+        if(holoCanCreate()&(holoRemainingSpawns()>=6)){
+            Count++
+            judgementCutCreateOrb(Count)
+        }
+        timer("create_orb",100)
+    }
+}
+interval(50+clamp(50*(((cpuUsage()*1000000)/300)-1),0,250))
+if(changed(owner():isAlive())){
+    if(Dead){
+        if(owner():isAlive()){
+            timer("reset",100)
+        }
+    }
+    if(!Dead){
+        if(!owner():isAlive()){
+            Dead=1
+        }
+    }
+}
+if(clk("reset")){
+    reset()
+}
+event removed(_) {
+    owner():plySetRunSpeed(200)
+    owner():plySetWalkSpeed(200)
+    owner():plySetGravity(600)
+    owner():plySetJumpPower(200)
+}
+if(changed(JudgementCut)){
+    owner():plySetRunSpeed(45*!JudgementCut)
+    owner():plySetWalkSpeed(400*!JudgementCut)
+}
+
+for(I=1,5){
+    Index=I
+    JudgementCutOrbs[Index,number]=JudgementCutOrbs[Index,number]+0.08
+    JudgementCutOrbs[Index,number]=clamp(JudgementCutOrbs[Index,number],0,1)
+    TargetCutOrb=JudgementCutOrbs[Index,number]
+    if(TargetCutOrb==1){
+        holoPos(100*Index,owner():pos()-vec(0,0,5000))
+    }else{
+        damageAreaSphere(table(holoEntity(100*Index):pos(),60,150,holoEntity(100*Index)))
+    }
+    holoScale(100*Index,vec(5*sin((JudgementCutOrbs[Index,number]+0.2)*180)/5))
+    for(I2=102,104){
+        holoAng(I2*I,holoEntity(I2*I):toWorld(ang(-125,0,0)))
+    }
+}
+W=owner():keyForward()
+S=owner():keyBack()
+A=owner():keyLeft()
+D=owner():keyRight()
+Dodge=owner():keyJump()
+Shift=owner():keySprint()
+Taunt=owner():keyReload()
+if(changed(Taunt)&Taunt&CanTaunt){
+    CanTaunt=0
+    timer("canTaunt",2000)
+    owner():emitSound(select(randint(1,5),"*vo/npc/male01/question11.wav","*vo/npc/male01/outofyourway02.wav","*vo/npc/male01/whoops01.wav","*vo/npc/male01/thislldonicely01.wav","*vo/npc/male01/squad_affirm06.wav"),50,100)
+}
+if(clk("canTaunt")){
+    CanTaunt=1
+}
+SummonedSwordButton=owner():keyUse()
+Mouse1=owner():keyAttack1()*(owner():weapon():type()=="none")
+if(changed(Shift)|changed(JudgementCut)|changed(AnimationData!=Animations["idle",table])){
+    owner():plySetJumpPower(Shift*!JudgementCut ? 0 : 500)
+    owner():plyGod(Shift*!JudgementCut&(AnimationData==Animations["idle",table]))
+}
+if(changed(Dodge)&Dodge&!Shift&CanDoubleJump){
+    CanDoubleJump=0
+    owner():plyApplyForce(vec(0,0,-owner():vel():z()+550))
+    owner():emitSound("physics/flesh/flesh_impact_hard2.wav",50,100)
+}
+if(changed(owner():isOnGround())){
+    CanDoubleJump=!owner():isOnGround()
+}
+SummonedSwordDelay-=0.75
+SummonedSwordDelay=clamp(SummonedSwordDelay,0,1)
+if(SummonedSwordDelay==0){
+    if(changed(SummonedSwordButton)&SummonedSwordButton&Shift){
+        summonedSword(owner():pos()+vec(0,25*(SummonedSwordFlip-!SummonedSwordFlip),100):rotateAroundAxis(vec(0,0,1),owner():eyeAngles():yaw()),table())
+    }
+}
+#ifdef damage:isFallDamage()
+event damage(Victim:entity, Damage:damage) {
+    if(Victim==owner()){
+        if(Damage:isFallDamage()){
+            owner():plySetHealth(owner():health()+Damage:getDamage())
+        }else{
+            if(Shift&(AnimationData==Animations["idle",table])){
+                owner():emitSound("weapons/katana/katana_impact_world2.wav",50,100)
+            }else{
+                HealBlock=1
+            }
+        }
+    }
+}
+#endif
+HealBlock-=0.01
+HealBlock=clamp(HealBlock,0,1)
+if(owner():health()<owner():maxHealth()&!HealBlock){
+    owner():plySetHealth(owner():health()+owner():maxHealth()/75)
+}
+if(owner():health()>owner():maxHealth()){
+    owner():plySetHealth(owner():maxHealth())
+}
+if(changed(Dodge)&Dodge&Shift&(DodgeCounter<3)){
+    if(W|S|A|D){
+        Dir=vec(W-S,A-D,0):rotateAroundAxis(vec(0,0,1),owner():eyeAngles():yaw())
+        owner():plyApplyForce(-owner():vel()+Dir*3500*(0.5+(0.5*owner():isOnGround())))
+        owner():emitSound("physics/body/body_medium_impact_soft3.wav",50,100)
+        timer("stop",100)
+        DodgeCounter++
+        stoptimer("dodgereset")
+        timer("dodgereset",1000)
+    }elseif(Dodge){
+        Dir=vec(0,0,1):rotateAroundAxis(vec(0,0,1),owner():eyeAngles():yaw())
+        owner():plyApplyForce(-owner():vel()+Dir*2500*(0.5+(0.5*owner():isOnGround())))
+        owner():emitSound("physics/body/body_medium_impact_soft3.wav",50,100)
+        timer("stop",100)
+        DodgeCounter++
+        stoptimer("dodgereset")
+        timer("dodgereset",1000)
+    }
+}
+if(clk("dodgereset")){
+    DodgeCounter=0
+}
+if(clk("stop")){
+    owner():plyApplyForce(-owner():vel())
+}
+CoolDown-=0.15
+CoolDown=clamp(CoolDown,0,10)
+if(CoolDown==0){
+    if(changed(Mouse1)&Mouse1){
+        attack()
+    }
+}
+if(!JudgementCut){
+    if(Mouse1&!BlockAttack){
+        JudgementCutVal+=0.1
+        JudgementCutVal=clamp(JudgementCutVal,0,1)
+        if(JudgementCutVal==1){
+            Sheath=-5
+            JudgementCut=1
+            owner():emitSound("weapons/katana/katana_swing_miss1.wav",50,100)
+            JudgementCutCount=0
+            DamageFrame=0
+            AnimationData=Animations["atk_judgement_cut_start",table]
+            Dir=vec(-1,0,0):rotateAroundAxis(vec(0,0,1),owner():eyeAngles():yaw())
+            owner():plyApplyForce(-owner():vel()+Dir*500*(0.5+(0.5*owner():isOnGround())))
+            owner():emitSound("physics/body/body_medium_impact_soft3.wav",50,100)
+            timer("stop",200)
+        }
+    }else{
+        JudgementCutVal=0
+    }
+}elseif(!Sheathing){
+    if(changed(Mouse1)&!Mouse1&(Frame>=AnimationData:count())&(CoolDown==0)){
+        JudgementCutCount++
+        if(JudgementCutCount<=5){
+            if(!owner():isOnGround()){
+                owner():plyApplyForce(vec(0,0,-owner():vel():z()+200))
+            }
+            Frame=0
+            FrameTime=0
+            Sheath=JudgementCutCount==6
+            AnimationData=Animations["atk_judgement_cut",table]
+            judgementCutSpawn()
+            owner():emitSound("ambient/levels/citadel/weapon_disintegrate3.wav",50,100)
+        }
+        if(JudgementCutCount>=5){
+            JudgementCutCount=0
+            JudgementCut=0
+            JudgementCutVal=0
+            Sheath=1
+            Sheathing=1
+            CoolDown=2
+            AnimationData=Animations["atk_judgement_cut_sheath",table]
+            owner():emitSound("weapons/grenade_throw.wav",50,100)
+        }
+        
+    }
+}
+if(!Mouse1){
+    BlockAttack=0
+}
+for(I=1,SummonedSwords:count()){
+    BladeData=SummonedSwords[I,table]
+    BladeEnt=BladeData[1,entity]
+    if(BladeData[3,number]>0){
+        SummonedSwords[I,table][3,number]=SummonedSwords[I,table][3,number]-0.1
+        if(SummonedSwords[I,table][3,number]<=0){
+            holoUnparent(holoIndex(BladeEnt))
+        }
+        holoAng(holoIndex(BladeEnt),ang((BladeEnt:pos()-owner():aimPos()):toAngle():pitch()-90,(BladeEnt:pos()-owner():aimPos()):toAngle():yaw(),0))
+    }elseif((BladeData[4,number]>0)&(BladeData[2,number])){
+        SummonedSwords[I,table][4,number]=SummonedSwords[I,table][4,number]-0.1
+        if(SummonedSwords[I,table][4,number]<=0){
+            owner():emitSound("physics/glass/glass_cup_break"+randint(1,2)+".wav",50,100)
+            holoAlpha(holoIndex(BladeEnt),0)
+            SummonedSwords:removeTable(I)
+        }
+    }
+}
+event tick(){
+    AnimationTime=(AnimationData[clamp(Frame,1,AnimationData:count()),table][11,number]/60)
+    CurrentFrameTime=AnimationData[clamp(Frame,1,AnimationData:count()),table][10,number]
+    FrameCount=AnimationData:count()
+    FrameTime+=1*AnimationTime*(Sheathing ? 1 : AnimationSpeedMult)*(0.4+(0.6*!JudgementCut))
+    FrameTime=clamp(FrameTime,0,CurrentFrameTime)
+    if((AnimationData!=Animations["idle",table])){
+        if((FrameTime>=CurrentFrameTime/(1+JudgementCut))){
+            if(Frame<FrameCount){
+                FrameTime=0
+            }
+            Frame++
+            if(changed(Frame)&(Frame==DamageFrame)&(DamageFrame!=0)){
+                damageAreaSphere(DamageData)
+            }
+            Frame=clamp(Frame,0,AnimationData:count())
+            if(Frame<=0){
+                Frame=AnimationData:count()
+            }
+            if(Frame>=AnimationData:count()){
+                if(Sheathing){
+                    AnimationData=Animations["idle",table]
+                    Frame=0
+                    if(Out){
+                        Out=0
+                        owner():emitSound("ambient/voices/citizen_punches2.wav",50,150,30)
+                    }
+                }
+                Sheathing=0
+            }
+        }
+        if(Frame>=AnimationData:count()){
+            Sheath+=1/40
+            if(Sheath>=1){
+                sheathAnim()
+                Sheath=0
+                JudgementCut=0
+                JudgementCutVal=0
+                JudgementCutCount=0
+                Frame=0
+                FrameTime=0
+                BlockAttack=Mouse1
+            }
+        }
+    }else{
+        FrameTime=0
+        Sheath=0
+    }
+    if(owner():isOnGround()){
+        AirTime=1
+    }
+    AirTime2-=0.01
+    Frame=clamp(Frame,1,AnimationData:count())
+    Sheath=clamp(Sheath,-25,1)
+    AirTime=clamp(AirTime,0,1)
+    AirTime2=clamp(AirTime2,0,1)
+    if(AirTime2){
+        owner():plyApplyForce(vec(0,0,-owner():vel():z()*1*AirTime2*(owner():vel():z()<0)))
+    }
+    for(I=1,SummonedSwords:count()){
+        BladeData=SummonedSwords[I,table]
+        BladeEnt=BladeData[1,entity]
+        if(!BladeData[2,number]&(BladeData[3,number]<=0)){
+            holoPos(holoIndex(BladeEnt),BladeEnt:toWorld(vec(0,0,75)))
+            rangerFilter(owner())
+            rangerFilter(BladeEnt)
+            local R = rangerOffsetHull(75,BladeEnt:pos(),BladeEnt:up(),vec(5,5,0))
+            if(R:hit()){
+                SummonedSwords[I,table][2,number]=1
+                owner():emitSound("physics/surfaces/tile_impact_bullet4.wav",50,100)
+                holoPos(holoIndex(BladeEnt),R:pos())
+                damageAreaSphere(table(BladeEnt:pos(),25,75,BladeEnt))
+            }
+        }
+    }
+}
+for(I=1,9){
+    LastFrame=AnimationData[clamp(Frame,1,AnimationData:count()),table][I,angle]
+    NextFrame=AnimationData[((clamp(Frame+1,1,AnimationData:count()))==AnimationData:count()+1) ? 1 : clamp(Frame+1,1,AnimationData:count()),table][I,angle]
+    holoAng(I,holoEntity(I):parent():toWorld(slerp(quat(LastFrame),quat(NextFrame),FrameTime/CurrentFrameTime):toAngle()):rotateAroundAxis(owner():eyeAngles():right(),-owner():eyeAngles():pitch()*0.5*(I==1)*!owner():isOnGround()))
+}
+if(AnimationData==Animations["idle",table]&Shift){
+    holoAng(1,holoEntity(1):parent():toWorld(ang(-45,-45,0)))
+    RootPos=vec(9,-7,7)
+}else{
+    RootPos=vec()
+}
+holoPos(1,holoEntity(1):parent():toWorld(RootPos))
+

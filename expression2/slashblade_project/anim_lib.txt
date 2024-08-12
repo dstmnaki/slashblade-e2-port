@@ -1,0 +1,18 @@
+@name SlashBlade_Project/ANIM_Lib
+#include "e2shared/slashblade_project/anims/anim_idle_01"
+
+#include "e2shared/slashblade_project/anims/anim_upper_01"
+#include "e2shared/slashblade_project/anims/anim_upper_01_sheath"
+#include "e2shared/slashblade_project/anims/anim_upper_02"
+#include "e2shared/slashblade_project/anims/anim_upper_02_sheath"
+
+#include "e2shared/slashblade_project/anims/anim_down_01"
+#include "e2shared/slashblade_project/anims/anim_down_01_sheath"
+#include "e2shared/slashblade_project/anims/anim_down_02"
+#include "e2shared/slashblade_project/anims/anim_down_02_sheath"
+#include "e2shared/slashblade_project/anims/anim_forward_01"
+#include "e2shared/slashblade_project/anims/anim_forward_01_sheath"
+
+#include "e2shared/slashblade_project/anims/anim_judgement_cut_start"
+#include "e2shared/slashblade_project/anims/anim_judgement_cut"
+#include "e2shared/slashblade_project/anims/anim_judgement_cut_sheath"
