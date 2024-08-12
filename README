@@ -25,10 +25,9 @@ Regeneration
 
 Requirements:
 Team Fortress 2 mounted
-Wiremod
-SProps
-Buildstruct's Wire Functions Addon Collection
-https://steamcommunity.com/sharedfiles/filedetails/?id=2959182911
+[Wiremod](https://steamcommunity.com/sharedfiles/filedetails/?id=160250458)
+[SProps](https://steamcommunity.com/workshop/filedetails/?id=173482196)
+[Buildstruct's Wire Functions Addon Collection](https://steamcommunity.com/sharedfiles/filedetails/?id=2959182911)
 Command to enable all models for holos, wire_holograms_modelany 1
 Command to enable e2 cores, wire_expression2_extension_enable <name>
 
