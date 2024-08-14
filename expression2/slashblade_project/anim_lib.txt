@@ -6,6 +6,9 @@
 #include "e2shared/slashblade_project/anims/anim_upper_02"
 #include "e2shared/slashblade_project/anims/anim_upper_02_sheath"
 
+#include "e2shared/slashblade_project/anims/anim_sheath_attack_01"
+#include "e2shared/slashblade_project/anims/anim_sheath_attack_01_sheath"
+#include "e2shared/slashblade_project/anims/anim_sheath_attack_02_sheath"
 #include "e2shared/slashblade_project/anims/anim_down_01"
 #include "e2shared/slashblade_project/anims/anim_down_01_sheath"
 #include "e2shared/slashblade_project/anims/anim_down_02"
