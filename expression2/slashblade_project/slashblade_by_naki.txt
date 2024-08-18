@@ -670,6 +670,8 @@ if(first()){
                             owner():emitSound("weapons/shovel/shovel_fire.wav",50,100)
                             owner():plyApplyForce(vec(-owner():vel():x()*0.25,-owner():vel():y()*0.25,-owner():vel():z()+500*AirTime))
                             CoolDown=1.5
+                            AirTime-=0.05*!owner():isOnGround()
+                            AirTime2=!owner():isOnGround()
                         }
                     break
                     default,
@@ -691,6 +693,7 @@ if(first()){
                                     E:plyApplyForce(vec(-E:vel():x()*0.5,-E:vel():y()*0.5,-E:vel():z()+700))
                                 }
                                 owner():emitSound("weapons/shovel/shovel_fire.wav",50,100)
+                                AirTime2=1
                             }else{
                                 Frame=1
                                 AnimationData=Animations["atk_attack_force_edge_01",table]
@@ -701,12 +704,9 @@ if(first()){
                                 owner():emitSound("weapons/shovel/shovel_fire.wav",50,100)
                                 CoolDown=1
                             }
-                            
                         }
                     break
                 }
-                AirTime-=0.05*!owner():isOnGround()
-                AirTime2=!owner():isOnGround()
             }
         }
     }
