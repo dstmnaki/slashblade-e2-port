@@ -1,3 +1,7 @@
+Ver3.0
+
+----------------------------------------------------------------------------------------------
+
 SlashBlade Minecraft mod now in gmod as an e2 (Preview edition for updates, updates will be pushed here before workshop for testing and so that i don't have to copy paste the icon constantly...mainly that)
 
 ----------------------------------------------------------------------------------------------
@@ -16,11 +20,11 @@ Special attacks
 Heavy attack + combos
 Double Jump
 Summoned Swords
+Force Edge
 Judgement Cut
 Taunting
 Blocking
 No Fall Damage
-Regeneration
 
 ----------------------------------------------------------------------------------------------
 
@@ -52,15 +56,17 @@ Combos:
 Mouse1 - Basic attack
 Mouse2 - Heavy attack
 
-Mouse1 + Mouse1 + Mouse1 + Mouse1 (on ground) - Combo 1
-Mouse1 + Mouse1 + Mouse1 (in air) - Combo 1
-Mouse1 + Mouse1 + Mouse2 (on ground) - Combo 2
+Mouse1 + Mouse1 + Mouse1 + Mouse1 (on ground) - Combo A
+Mouse1 + Mouse1 + Mouse2 (on ground) - Combo B
+Mouse1 + Mouse1 + Mouse1 (in air) - Combo C
+Mouse1 + Mouse2 (in air) - Aerial Rave
 
-Mouse2 - Downwards cut (for now, will be replaced by force edge in the future)
+Mouse2 - Downwards Slash
 
-Shift + W + Mouse1 (While on ground) - Dash Cut
-Shift + W + Mouse1 (While in air) - Downwards Cut
-Shift + S + Mouse1 - Upper Cut
+Shift + W + Mouse1 (While on ground) - Rapid Slash
+Shift + W + Mouse1 (While in air) - Aerial Cleave
+Shift + S + Mouse1 - Upper Slash
+Shift + S + Mouse2 - Rising Star
 
 Mouse1 (Hold) + Mouse1 (x5) - Judgement Cut
 
@@ -85,7 +91,6 @@ Planned Features:
 -More combos & animations
 -More special moves
 -Judgement Cut End
--Force Edge
 -DT?
 
 ----------------------------------------------------------------------------------------------
