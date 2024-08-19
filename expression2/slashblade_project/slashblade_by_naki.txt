@@ -13,7 +13,7 @@ if(first()){
     Sounds["swingSoundYamato",table]=table("weapons/shovel/shovel_fire.wav")
     Sounds["hitSoundYamato",table]=table("weapons/knife/knife_hit1.wav","weapons/knife/knife_hit2.wav","weapons/knife/knife_hit3.wav","weapons/knife/knife_hit4.wav")
     Sounds["swingSoundYamatoSheath",table]=table("weapons/katana/katana_swing_miss1.wav")
-    Sounds["hitSoundYamatoSheath",table]=table("")
+    Sounds["hitSoundYamatoSheath",table]=table("physics/wood/wood_plank_impact_hard2.wav")
     Sounds["sheathSoundYamato",table]=table("ambient/voices/citizen_punches2.wav")
     
     Sounds["swingSoundForceEdge",table]=table("weapons/shovel/shovel_fire.wav")
@@ -394,9 +394,8 @@ if(first()){
     local AnimName = "atk_judgement_cut",                Animations[AnimName,table]=table(AnimName,ANIM_JUDGEMENT_CUT)
     local AnimName = "atk_judgement_cut_sheath",         Animations[AnimName,table]=table(AnimName,ANIM_JUDGEMENT_CUT_SHEATH)
     
-    JudgementCutVal=BladeIndexTest=SummonedSwordFlip=SummonedSwordDelay=AirTime=Count=JudgementCutCount=W=S=Shift=Sheathing=JudgementCut=CoolDown=BlockAttack=0
+    DodgeCounter=JudgementCutVal=BladeIndexTest=SummonedSwordFlip=SummonedSwordDelay=AirTime=Count=JudgementCutCount=W=S=Shift=Sheathing=JudgementCut=CoolDown=BlockAttack=0
     CanDoubleJump=FrameCount=1
-    DodgeCounter=3
     
     AnimationData=Animations["idle",table]
     AnimationName=AnimationData[1,string]
@@ -517,7 +516,7 @@ if(first()){
         findInSphere(Pos,Size)
         local Find = findToArray()
         if(Find:count()>0){
-            if(DamageData[4,entity]:isValid()){
+            if(DamageData:exists(4)){
                 DamageData[4,entity]:judgementCutHitSound()
             }else{
                 switch(AttackType){
@@ -550,9 +549,10 @@ if(first()){
         findInBox(Pos+Size/2,Pos-Size/2)
         local Find = findToArray()
         if(Find:count()>0){
-            if(DamageData[4,entity]:isValid()){
+            if(DamageData:exists(4)){
                 DamageData[4,entity]:judgementCutHitSound()
             }else{
+                print(AttackType)
                 switch(AttackType){
                     case 0,
                         hitSoundYamatoSheath()
@@ -580,7 +580,7 @@ if(first()){
             switch(AnimationName){
                 case "atk_attack_01",
                     AnimationData=Animations["atk_attack_02",table]
-                    AttackType=1
+                    AttackType=0
                     
                     Frame=1
                     FrameTime=0
@@ -831,6 +831,7 @@ if(first()){
                     case Animations["atk_attack_02",table]:toString(),
                         if(owner():isOnGround()){
                             AnimationData=Animations["atk_attack_03",table]
+                            AttackType=1
                             
                             Frame=1
                             FrameTime=0
@@ -850,6 +851,7 @@ if(first()){
                     case Animations["atk_attack_04",table]:toString(),
                         if(!owner():isOnGround()){
                             AnimationData=Animations["atk_aerial_rave",table]
+                            AttackType=1
                             
                             Frame=1
                             FrameTime=0
@@ -872,6 +874,7 @@ if(first()){
                         if(AnimationData==Animations["idle",table]&owner():isOnGround()){
                             if(Shift&S){
                                 AnimationData=Animations["atk_attack_force_edge_02",table]
+                                AttackType=2
                                 
                                 Frame=1
                                 FrameTime=0
@@ -898,13 +901,14 @@ if(first()){
                                 swingSoundForceEdge()
                             }else{
                                 AnimationData=Animations["atk_attack_force_edge_01",table]
+                                AttackType=2
                                 
                                 Frame=1
                                 FrameTime=0
                                 Sheath=0.8
                                 CoolDown=1
                                 
-                                DamageFrame=2
+                                DamageFrame=3
                                 DamageData=table(owner():pos()+vec(0,0,owner():height()/2)+vec(50,0,0):rotateAroundAxis(vec(0,1,0),owner():eyeAngles():pitch()*!owner():isOnGround()):rotateAroundAxis(vec(0,0,1),owner():eyeAngles():yaw()),55,200)
                                 
                                 swingSoundForceEdge()
@@ -950,6 +954,9 @@ if(first()){
         }
         for(I=606,609){
             holoAlpha(I,255*True)
+        }
+        if(changed(True)&!True){
+            sheathSoundForceEdge()
         }
     }
     
@@ -1103,6 +1110,7 @@ if(SummonedSwordDelay>0){
 if(SummonedSwordDelay==0){
     if(changed(SummonedSwordButton)&SummonedSwordButton&Shift){
         summonedSword(owner():pos()+vec(0,25*(SummonedSwordFlip-!SummonedSwordFlip),100):rotateAroundAxis(vec(0,0,1),owner():eyeAngles():yaw()),table())
+        phantomBladeSummonSound()
     }
 }
 
@@ -1212,6 +1220,11 @@ event tick(){
     FrameTime=clamp(FrameTime,0,Animation[clamp(Frame,1,Animation:count()),table][10,number])
     if((AnimationName!="idle")){
         if(FrameTime>=Animation[clamp(Frame,1,Animation:count()),table][10,number]){
+            
+            if(changed(Frame)&(Frame==DamageFrame)&(DamageFrame!=0)){
+                damageAreaSphere(DamageData)
+            }
+            
             FrameTime=0
             Frame++
             
@@ -1221,10 +1234,6 @@ event tick(){
             
             if(changed(Animation[clamp(Frame,1,Animation:count()),table][13,number])){
                 showForceEdge(Animation[clamp(Frame,1,Animation:count()),table][13,number])
-            }
-            
-            if(changed(Frame)&(Frame==DamageFrame)&(DamageFrame!=0)){
-                damageAreaSphere(DamageData)
             }
             
             if(Frame<=0){
