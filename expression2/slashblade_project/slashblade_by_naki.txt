@@ -553,6 +553,7 @@ if(first()){
             if(DamageData[4,entity]:isValid()){
                 DamageData[4,entity]:judgementCutHitSound()
             }else{
+                print(AttackType)
                 switch(AttackType){
                     case 0,
                         hitSoundYamatoSheath()
@@ -831,6 +832,7 @@ if(first()){
                     case Animations["atk_attack_02",table]:toString(),
                         if(owner():isOnGround()){
                             AnimationData=Animations["atk_attack_03",table]
+                            AttackType=1
                             
                             Frame=1
                             FrameTime=0
@@ -850,6 +852,7 @@ if(first()){
                     case Animations["atk_attack_04",table]:toString(),
                         if(!owner():isOnGround()){
                             AnimationData=Animations["atk_aerial_rave",table]
+                            AttackType=1
                             
                             Frame=1
                             FrameTime=0
@@ -872,6 +875,7 @@ if(first()){
                         if(AnimationData==Animations["idle",table]&owner():isOnGround()){
                             if(Shift&S){
                                 AnimationData=Animations["atk_attack_force_edge_02",table]
+                                AttackType=2
                                 
                                 Frame=1
                                 FrameTime=0
@@ -898,13 +902,14 @@ if(first()){
                                 swingSoundForceEdge()
                             }else{
                                 AnimationData=Animations["atk_attack_force_edge_01",table]
+                                AttackType=2
                                 
                                 Frame=1
                                 FrameTime=0
                                 Sheath=0.8
                                 CoolDown=1
                                 
-                                DamageFrame=2
+                                DamageFrame=3
                                 DamageData=table(owner():pos()+vec(0,0,owner():height()/2)+vec(50,0,0):rotateAroundAxis(vec(0,1,0),owner():eyeAngles():pitch()*!owner():isOnGround()):rotateAroundAxis(vec(0,0,1),owner():eyeAngles():yaw()),55,200)
                                 
                                 swingSoundForceEdge()
@@ -1209,6 +1214,9 @@ if(changed(AnimationData:toString())){
     AnimationName=AnimationData[1,string]
     Animation=AnimationData[2,table]
     FrameCount=Animation:count()
+    if(DamageFrame>0){
+        print(DamageFrame)
+    }
 }
 
 event tick(){
@@ -1216,6 +1224,11 @@ event tick(){
     FrameTime=clamp(FrameTime,0,Animation[clamp(Frame,1,Animation:count()),table][10,number])
     if((AnimationName!="idle")){
         if(FrameTime>=Animation[clamp(Frame,1,Animation:count()),table][10,number]){
+            
+            if(changed(Frame)&(Frame==DamageFrame)&(DamageFrame!=0)){
+                damageAreaSphere(DamageData)
+            }
+            
             FrameTime=0
             Frame++
             
@@ -1225,10 +1238,6 @@ event tick(){
             
             if(changed(Animation[clamp(Frame,1,Animation:count()),table][13,number])){
                 showForceEdge(Animation[clamp(Frame,1,Animation:count()),table][13,number])
-            }
-            
-            if(changed(Frame)&(Frame==DamageFrame)&(DamageFrame!=0)){
-                damageAreaSphere(DamageData)
             }
             
             if(Frame<=0){
