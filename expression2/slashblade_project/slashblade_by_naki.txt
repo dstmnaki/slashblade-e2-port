@@ -1,5 +1,5 @@
 @name SlashBlade_Project/SlashBlade by Naki
-@persist [AnimationData Animations Animation Sounds Colors]:table AnimationName:string DodgeCounter UpwardForce ApplyForce Frame FrameTime Sheath Sheathing FrameCount W S Shift CoolDown JudgementCut JudgementCutVal JudgementCutCount BlockAttack JudgementCutOrbs:table Count AirTime AirTime2 DamageFrame DamageData:table SummonedSwords:table SummonedSwordDelay SummonedSwordFlip BladeIndexTest CanDoubleJump CanTaunt Dead EndAttack AutoNext
+@persist [AnimationData Animations Animation Sounds Colors]:table AttackType AnimationName:string DodgeCounter UpwardForce ApplyForce Frame FrameTime Sheath Sheathing FrameCount W S Shift CoolDown JudgementCut JudgementCutVal JudgementCutCount BlockAttack JudgementCutOrbs:table Count AirTime AirTime2 DamageFrame DamageData:table SummonedSwords:table SummonedSwordDelay SummonedSwordFlip BladeIndexTest CanDoubleJump CanTaunt Dead EndAttack AutoNext
 @trigger none
 if(dupefinished()){reset()}
 if(first()){
@@ -520,7 +520,20 @@ if(first()){
             if(DamageData[4,entity]:isValid()){
                 DamageData[4,entity]:judgementCutHitSound()
             }else{
-                hitSoundYamato()
+                switch(AttackType){
+                    case 0,
+                        hitSoundYamatoSheath()
+                    break
+                    case 1,
+                        hitSoundYamato()
+                    break
+                    case 2,
+                        hitSoundForceEdge()
+                    break
+                    default,
+                        hitSoundYamato()
+                    break
+                }
             }
         }
         foreach(_,E:entity=Find){
@@ -540,7 +553,20 @@ if(first()){
             if(DamageData[4,entity]:isValid()){
                 DamageData[4,entity]:judgementCutHitSound()
             }else{
-                hitSoundYamato()
+                switch(AttackType){
+                    case 0,
+                        hitSoundYamatoSheath()
+                    break
+                    case 1,
+                        hitSoundYamato()
+                    break
+                    case 2,
+                        hitSoundForceEdge()
+                    break
+                    default,
+                        hitSoundYamato()
+                    break
+                }
             }
         }
         foreach(_,E:entity=Find){
@@ -554,6 +580,7 @@ if(first()){
             switch(AnimationName){
                 case "atk_attack_01",
                     AnimationData=Animations["atk_attack_02",table]
+                    AttackType=1
                     
                     Frame=1
                     FrameTime=0
@@ -568,6 +595,7 @@ if(first()){
                 break
                 case "atk_attack_02",
                     AnimationData=Animations["atk_attack_04",table]
+                    AttackType=1
                     
                     Frame=1
                     FrameTime=0
@@ -583,6 +611,7 @@ if(first()){
                 break
                 case "atk_attack_04",
                     AnimationData=Animations["atk_attack_05",table]
+                    AttackType=1
                     
                     Frame=1
                     FrameTime=0
@@ -597,6 +626,7 @@ if(first()){
                 break
                 case "atk_attack_05",
                     AnimationData=Animations["atk_attack_06",table]
+                    AttackType=1
                     
                     Frame=1
                     FrameTime=0
@@ -683,6 +713,7 @@ if(first()){
                 if(S&Shift){
                     if(AnimationData!=Animations["atk_attack_07",table]){
                         AnimationData=Animations["atk_attack_07",table]
+                        AttackType=1
                         
                         Frame=1
                         Sheath=0.8
@@ -713,6 +744,7 @@ if(first()){
                     swingSoundYamato()
                     if(owner():isOnGround()){
                         AnimationData=Animations["atk_rapid_slash",table]
+                        AttackType=1
                         
                         FrameTime=0
                         Frame=1
@@ -729,6 +761,7 @@ if(first()){
                         stepSound()
                     }else{
                         AnimationData=Animations["atk_attack_force_edge_01",table]
+                        AttackType=2
                         
                         FrameTime=0
                         Frame=1
@@ -756,6 +789,7 @@ if(first()){
                     if(AnimationData==Animations["idle",table]|AnimationData==Animations["atk_upper_02",table]){
                         if(owner():isOnGround()){
                             AnimationData=Animations["atk_attack_01",table]
+                            AttackType=0
                             
                             FrameTime=0
                             Frame=1
@@ -768,6 +802,7 @@ if(first()){
                             swingSoundYamatoSheath()
                         }else{
                             AnimationData=Animations["atk_attack_04",table]
+                            AttackType=1
                             
                             FrameTime=0
                             Frame=1
@@ -915,6 +950,9 @@ if(first()){
         }
         for(I=606,609){
             holoAlpha(I,255*True)
+        }
+        if(changed(True)&!True){
+            sheathSoundForceEdge()
         }
     }
     
@@ -1068,6 +1106,7 @@ if(SummonedSwordDelay>0){
 if(SummonedSwordDelay==0){
     if(changed(SummonedSwordButton)&SummonedSwordButton&Shift){
         summonedSword(owner():pos()+vec(0,25*(SummonedSwordFlip-!SummonedSwordFlip),100):rotateAroundAxis(vec(0,0,1),owner():eyeAngles():yaw()),table())
+        phantomBladeSummonSound()
     }
 }
 
