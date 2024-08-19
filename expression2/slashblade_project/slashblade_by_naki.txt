@@ -13,7 +13,7 @@ if(first()){
     Sounds["swingSoundYamato",table]=table("weapons/shovel/shovel_fire.wav")
     Sounds["hitSoundYamato",table]=table("weapons/knife/knife_hit1.wav","weapons/knife/knife_hit2.wav","weapons/knife/knife_hit3.wav","weapons/knife/knife_hit4.wav")
     Sounds["swingSoundYamatoSheath",table]=table("weapons/katana/katana_swing_miss1.wav")
-    Sounds["hitSoundYamatoSheath",table]=table("")
+    Sounds["hitSoundYamatoSheath",table]=table("physics/wood/wood_plank_impact_hard2.wav")
     Sounds["sheathSoundYamato",table]=table("ambient/voices/citizen_punches2.wav")
     
     Sounds["swingSoundForceEdge",table]=table("weapons/shovel/shovel_fire.wav")
@@ -517,7 +517,7 @@ if(first()){
         findInSphere(Pos,Size)
         local Find = findToArray()
         if(Find:count()>0){
-            if(DamageData[4,entity]:isValid()){
+            if(DamageData:exists(4)){
                 DamageData[4,entity]:judgementCutHitSound()
             }else{
                 switch(AttackType){
@@ -550,7 +550,7 @@ if(first()){
         findInBox(Pos+Size/2,Pos-Size/2)
         local Find = findToArray()
         if(Find:count()>0){
-            if(DamageData[4,entity]:isValid()){
+            if(DamageData:exists(4)){
                 DamageData[4,entity]:judgementCutHitSound()
             }else{
                 print(AttackType)
@@ -581,7 +581,7 @@ if(first()){
             switch(AnimationName){
                 case "atk_attack_01",
                     AnimationData=Animations["atk_attack_02",table]
-                    AttackType=1
+                    AttackType=0
                     
                     Frame=1
                     FrameTime=0
@@ -1214,9 +1214,6 @@ if(changed(AnimationData:toString())){
     AnimationName=AnimationData[1,string]
     Animation=AnimationData[2,table]
     FrameCount=Animation:count()
-    if(DamageFrame>0){
-        print(DamageFrame)
-    }
 }
 
 event tick(){
