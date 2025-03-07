@@ -895,7 +895,7 @@ if(first()){
                         }
                     break
                     default,
-                        if(AnimationData==Animations["idle",table]&owner():isOnGround()){
+                        if(AnimationData==Animations["idle",table]&owner():isOnGround()&HasForceEdge){
                             if(Shift&S){
                                 AnimationData=Animations["atk_attack_force_edge_02",table]
                                 AnimationDataName["name",string]="atk_attack_force_edge_02" 
@@ -966,13 +966,13 @@ if(first()){
     Dead=0
     owner():plySetGravity(1000)
     timer("create_orb",100)
-    holoAlpha(10,255*AnimationData[clamp(Frame,1,AnimationData:count()),table][12,number])
-    holoAlpha(599,255*(1-AnimationData[clamp(Frame,1,AnimationData:count()),table][12,number]))
+    holoAlpha(10,0)
+    holoAlpha(599,255)
     for(I=600,604){
-        holoAlpha(I,255*(1-AnimationData[clamp(Frame,1,AnimationData:count()),table][13,number]))
+        holoAlpha(I,255*HasForceEdge)
     }
     for(I=606,609){
-        holoAlpha(I,255*AnimationData[clamp(Frame,1,AnimationData:count()),table][13,number])
+        holoAlpha(I,0)
     }
 }
 if(clk("create_orb")){
@@ -1047,7 +1047,7 @@ W=owner():keyForward()
 S=owner():keyBack()
 A=owner():keyLeft()
 D=owner():keyRight()
-Dodge=owner():keyJump()
+Dodge=owner():keyPressed("space")
 Shift=owner():keySprint()
 Taunt=owner():keyReload()
 if(changed(Taunt)&Taunt&CanTaunt){
@@ -1066,10 +1066,13 @@ if(changed(Shift)|changed(JudgementCut)|changed(AnimationData!=Animations["idle"
     owner():plySetJumpPower(Shift*!JudgementCut ? 0 : 500)
     owner():plyGod(Shift*!JudgementCut&(AnimationData==Animations["idle",table]))
 }
-if(changed(Dodge)&Dodge&!Shift&CanDoubleJump){
-    CanDoubleJump=0
-    owner():plyApplyForce(vec(-owner():vel():x()*0.25,-owner():vel():y()*0.25,-owner():vel():z()+550))
-    owner():emitSound("physics/flesh/flesh_impact_hard2.wav",50,100)
+if(changed(Dodge)&Dodge&!Shift){
+    if(CanDoubleJump){
+        CanDoubleJump=0
+        owner():plyApplyForce(vec(-owner():vel():x()*0.25,-owner():vel():y()*0.25,-owner():vel():z()+550))
+        owner():emitSound("physics/flesh/flesh_impact_hard2.wav",50,100)
+    }
+    
 }
 if(changed(owner():isOnGround())){
     CanDoubleJump=!owner():isOnGround()
