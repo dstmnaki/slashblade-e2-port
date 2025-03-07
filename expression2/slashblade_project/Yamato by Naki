@@ -4,7 +4,7 @@
 if(dupefinished()){reset()}
 if(first()){
     
-    HasForceEdge=1
+    HasForceEdge=0
     NormalSProps=1
     
     
@@ -529,6 +529,7 @@ if(first()){
         findExcludeEntity(owner())
         findIncludeClass("npc_*")
         findIncludeClass("training_dummy")
+        findIncludeClass("starfall_cnextbot")
         findIncludeClass(owner():type())
         findInSphere(Pos,Size)
         local Find = findToArray()
@@ -563,6 +564,7 @@ if(first()){
         findExcludeEntity(owner())
         findIncludeClass("npc_*")
         findIncludeClass("training_dummy")
+        findIncludeClass("starfall_cnextbot")
         findIncludeClass(owner():type())
         findInBox(Pos+Size/2,Pos-Size/2)
         local Find = findToArray()
@@ -752,6 +754,8 @@ if(first()){
                         if(owner():isOnGround()){
                             findExcludeEntity(owner())
                             findIncludeClass("npc_*")
+                            findIncludeClass("training_dummy")
+                            findIncludeClass("starfall_cnextbot")
                             findIncludeClass(owner():type())
                             findInSphere(DamageData[1,vector],75)
                             foreach(_,E:entity=findToArray()){
@@ -801,6 +805,8 @@ if(first()){
                         
                         findExcludeEntity(owner())
                         findIncludeClass("npc_*")
+                        findIncludeClass("training_dummy")
+                        findIncludeClass("starfall_cnextbot")
                         findIncludeClass(owner():type())
                         findInSphere(DamageData[1,vector],125)
                         foreach(_,E:entity=findToArray()){
@@ -919,6 +925,8 @@ if(first()){
                                 
                                 findExcludeEntity(owner())
                                 findIncludeClass("npc_*")
+                                findIncludeClass("training_dummy")
+                                findIncludeClass("starfall_cnextbot")
                                 findIncludeClass(owner():type())
                                 findInSphere(DamageData[1,vector],75)
                                 foreach(_,E:entity=findToArray()){
