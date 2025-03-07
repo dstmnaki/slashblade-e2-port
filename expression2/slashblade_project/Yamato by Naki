@@ -4,7 +4,7 @@
 if(dupefinished()){reset()}
 if(first()){
     
-    HasForceEdge=0
+    HasForceEdge=1
     NormalSProps=1
     
     
@@ -112,7 +112,9 @@ if(first()){
     
     #Voice Lines
     function void voiceLine(){
-        owner():emitSound(Sounds["voiceLines",table][randint(1,Sounds["voiceLines",table]:count()),string],50,100)
+        Selection=randint(1,Sounds["voiceLines",table]:count())
+        owner():emitSound(Sounds["voiceLines",table][Selection-1,string],50,100)
+        concmd("act "+select(Selection,"disagree","halt","pers","forward","becon","forward"))
     }
     
     
@@ -1055,7 +1057,7 @@ Taunt=owner():keyReload()
 if(changed(Taunt)&Taunt&CanTaunt){
     CanTaunt=0
     timer("canTaunt",2000)
-    owner():emitSound(select(randint(1,5),"*vo/npc/male01/question11.wav","*vo/npc/male01/outofyourway02.wav","*vo/npc/male01/whoops01.wav","*vo/npc/male01/thislldonicely01.wav","*vo/npc/male01/squad_affirm06.wav"),50,100)
+    voiceLine()
 }
 if(clk("canTaunt")){
     CanTaunt=1
