@@ -526,6 +526,7 @@ if(first()){
         local Amount=DamageData[3,number]
         findExcludeEntity(owner())
         findIncludeClass("npc_*")
+        findIncludeClass("training_dummy")
         findIncludeClass(owner():type())
         findInSphere(Pos,Size)
         local Find = findToArray()
@@ -559,6 +560,7 @@ if(first()){
         local Amount=DamageData[3,number]
         findExcludeEntity(owner())
         findIncludeClass("npc_*")
+        findIncludeClass("training_dummy")
         findIncludeClass(owner():type())
         findInBox(Pos+Size/2,Pos-Size/2)
         local Find = findToArray()
