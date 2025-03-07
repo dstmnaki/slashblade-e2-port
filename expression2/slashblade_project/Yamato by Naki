@@ -1225,12 +1225,14 @@ event tick(){
                 holoAlpha(10,255*AnimationData[clamp(Frame,1,AnimationData:count()),table][12,number])
                 holoAlpha(599,255*(1-AnimationData[clamp(Frame,1,AnimationData:count()),table][12,number]))
             }
-            if(changed(AnimationData[clamp(Frame,1,AnimationData:count()),table][13,number])){
-                for(I=600,604){
-                    holoAlpha(I,255*(1-AnimationData[clamp(Frame,1,AnimationData:count()),table][13,number]))
-                }
-                for(I=606,609){
-                    holoAlpha(I,255*AnimationData[clamp(Frame,1,AnimationData:count()),table][13,number])
+            if(HasForceEdge){
+                if(changed(AnimationData[clamp(Frame,1,AnimationData:count()),table][13,number])){
+                    for(I=600,604){
+                        holoAlpha(I,255*(1-AnimationData[clamp(Frame,1,AnimationData:count()),table][13,number]))
+                    }
+                    for(I=606,609){
+                        holoAlpha(I,255*AnimationData[clamp(Frame,1,AnimationData:count()),table][13,number])
+                    }
                 }
             }
             if(Frame<=0){
