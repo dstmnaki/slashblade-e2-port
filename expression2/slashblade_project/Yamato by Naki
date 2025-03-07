@@ -1163,6 +1163,7 @@ if(!JudgementCut){
             FrameTime=0
             Sheath=0
             AnimationData=Animations["atk_judgement_cut",table]
+            AnimationDataName["name",string]="atk_judgement_cut"
             judgementCutSpawn()
             owner():emitSound("ambient/levels/citadel/weapon_disintegrate3.wav",50,100)
         }
@@ -1174,6 +1175,7 @@ if(!JudgementCut){
             Sheathing=1
             CoolDown=1
             AnimationData=Animations["atk_judgement_cut_sheath",table]
+            AnimationDataName["name",string]="atk_judgement_cut_sheath"
             owner():emitSound("weapons/grenade_throw.wav",50,100)
         }
         JudgementCutCount++
