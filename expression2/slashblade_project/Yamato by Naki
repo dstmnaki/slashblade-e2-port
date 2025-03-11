@@ -1133,7 +1133,7 @@ if(SummonedSwordDelay==0){
 event damage(Victim:entity, Damage:damage) {
     if(Victim==owner()){
         if(Damage:isFallDamage()){
-            owner():plySetHealth(owner():health()+Damage:getDamage())
+            owner():plySetHealth(clamp(owner():health()+Damage:getDamage(),0,owner():maxHealth()))
         }else{
             BlockHeal=curtime()
             if(Shift&(AnimationData==Animations["idle",table])){
