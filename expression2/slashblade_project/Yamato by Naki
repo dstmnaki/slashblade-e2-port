@@ -1,12 +1,32 @@
 @name SlashBlade_Project/Yamato by Naki
-@persist [AnimationData AnimationDataName Animations Sounds Colors]:table AttackType NormalSProps HasForceEdge DodgeCounter UpwardForce ApplyForce Frame FrameTime Sheath Sheathing AnimationTime FrameCount AnimationSpeedMult W S Shift CoolDown JudgementCut JudgementCutVal JudgementCutCount BlockAttack JudgementCutOrbs:table Count CurrentFrameTime AirTime AirTime2 DamageFrame DamageData:table HealBlock SummonedSwords:table SummonedSwordDelay SummonedSwordFlip BladeIndexTest CanDoubleJump CanTaunt Dead EndAttack AutoNext
+@persist [AnimationData AnimationDataName Animations Sounds Colors AttackDamageValues]:table SWEPOVERRIDE:string AttackType NormalSProps HasForceEdge DodgeCounter UpwardForce ApplyForce Frame FrameTime Sheath Sheathing AnimationTime FrameCount AnimationSpeedMult W S Shift CoolDown JudgementCut JudgementCutVal JudgementCutCount BlockAttack JudgementCutOrbs:table Count CurrentFrameTime AirTime AirTime2 DamageFrame DamageData:table HealBlock SummonedSwords:table SummonedSwordDelay SummonedSwordFlip BladeIndexTest CanDoubleJump CanTaunt Dead EndAttack AutoNext
 @trigger none
 if(dupefinished()){reset()}
 if(first()){
     
-    HasForceEdge=0
+    SWEPOVERRIDE = "none"
+    
+    HasForceEdge=1
     NormalSProps=1
     
+    #Damage Values
+    AttackDamageValues=table()
+    AttackDamageValues["atk_attack_01",number]=70
+    AttackDamageValues["atk_attack_02",number]=70
+    AttackDamageValues["atk_attack_03",number]=200
+    AttackDamageValues["atk_attack_04",number]=100
+    AttackDamageValues["atk_attack_05",number]=100
+    AttackDamageValues["atk_attack_06",number]=100
+    AttackDamageValues["atk_attack_07",number]=100
+    
+    AttackDamageValues["atk_aerial_rave",number]=250
+    AttackDamageValues["atk_rapid_slash",number]=150
+    
+    AttackDamageValues["atk_attack_force_edge_01",number]=200
+    AttackDamageValues["atk_attack_force_edge_02",number]=160
+    
+    AttackDamageValues["atk_judgement_cut",number]=150
+    AttackDamageValues["atk_phantom_sword",number]=70
     
     #Sounds
     Sounds=table()
@@ -607,7 +627,8 @@ if(first()){
                     Sheath=0
                     
                     DamageFrame=3
-                    DamageData=table(owner():pos()+vec(0,0,owner():height()/2)+vec(50,0,0):rotateAroundAxis(vec(0,1,0),owner():eyeAngles():pitch()*!owner():isOnGround()):rotateAroundAxis(vec(0,0,1),owner():eyeAngles():yaw()),45,100)
+                    DamageData=table(owner():pos()+vec(0,0,owner():height()/2)+vec(50,0,0):rotateAroundAxis(vec(0,1,0),
+                    owner():eyeAngles():pitch()*!owner():isOnGround()):rotateAroundAxis(vec(0,0,1),owner():eyeAngles():yaw()),45,AttackDamageValues["atk_attack_02",number])
                     
                     ApplyForce=UpwardForce*!owner():isOnGround()
                     
@@ -623,7 +644,8 @@ if(first()){
                     Sheath=0
                     
                     DamageFrame=3
-                    DamageData=table(owner():pos()+vec(0,0,owner():height()/2)+vec(50,0,0):rotateAroundAxis(vec(0,1,0),owner():eyeAngles():pitch()*!owner():isOnGround()):rotateAroundAxis(vec(0,0,1),owner():eyeAngles():yaw()),45,100)
+                    DamageData=table(owner():pos()+vec(0,0,owner():height()/2)+vec(50,0,0):rotateAroundAxis(vec(0,1,0),
+                    owner():eyeAngles():pitch()*!owner():isOnGround()):rotateAroundAxis(vec(0,0,1),owner():eyeAngles():yaw()),45,AttackDamageValues["atk_attack_04",number])
                     AutoNext=1
                     
                     ApplyForce=UpwardForce*!owner():isOnGround()
@@ -640,7 +662,8 @@ if(first()){
                     Sheath=0
                     
                     DamageFrame=3
-                    DamageData=table(owner():pos()+vec(0,0,owner():height()/2)+vec(50,0,0):rotateAroundAxis(vec(0,1,0),owner():eyeAngles():pitch()*!owner():isOnGround()):rotateAroundAxis(vec(0,0,1),owner():eyeAngles():yaw()),45,100)
+                    DamageData=table(owner():pos()+vec(0,0,owner():height()/2)+vec(50,0,0):rotateAroundAxis(vec(0,1,0),
+                    owner():eyeAngles():pitch()*!owner():isOnGround()):rotateAroundAxis(vec(0,0,1),owner():eyeAngles():yaw()),45,AttackDamageValues["atk_attack_05",number])
                     
                     ApplyForce=UpwardForce*!owner():isOnGround()
                     
@@ -656,7 +679,8 @@ if(first()){
                     Sheath=0
                     
                     DamageFrame=3
-                    DamageData=table(owner():pos()+vec(0,0,owner():height()/2)+vec(50,0,0):rotateAroundAxis(vec(0,1,0),owner():eyeAngles():pitch()*!owner():isOnGround()):rotateAroundAxis(vec(0,0,1),owner():eyeAngles():yaw()),45,100)
+                    DamageData=table(owner():pos()+vec(0,0,owner():height()/2)+vec(50,0,0):rotateAroundAxis(vec(0,1,0),
+                    owner():eyeAngles():pitch()*!owner():isOnGround()):rotateAroundAxis(vec(0,0,1),owner():eyeAngles():yaw()),45,AttackDamageValues["atk_attack_06",number])
                     
                     ApplyForce=UpwardForce*!owner():isOnGround()
                     
@@ -746,7 +770,8 @@ if(first()){
                         
                         CoolDown=0.5
                         DamageFrame=0
-                        DamageData=table(owner():pos()+vec(0,0,owner():height()/2)+vec(50,0,50*owner():isOnGround()):rotateAroundAxis(vec(0,1,0),owner():eyeAngles():pitch()*!owner():isOnGround()):rotateAroundAxis(vec(0,0,1),owner():eyeAngles():yaw()),vec(55,55,125),100)
+                        DamageData=table(owner():pos()+vec(0,0,owner():height()/2)+vec(50,0,50*owner():isOnGround()):rotateAroundAxis(vec(0,1,0),
+                        owner():eyeAngles():pitch()*!owner():isOnGround()):rotateAroundAxis(vec(0,0,1),owner():eyeAngles():yaw()),vec(55,55,125),AttackDamageValues["atk_attack_07",number])
                         damageAreaBox(DamageData)
                         
                         owner():plyApplyForce(vec(-owner():vel():x()*0.25,-owner():vel():y()*0.25,-owner():vel():z()+(owner():isOnGround() ? 600 : 200*AirTime)))
@@ -779,7 +804,7 @@ if(first()){
                         
                         CoolDown=1
                         DamageFrame=0
-                        DamageData=table(owner():pos()+vec(0,0,owner():height()/2)+vec(250,0,0):rotateAroundAxis(vec(0,0,1),owner():eyeAngles():yaw()),250,150)
+                        DamageData=table(owner():pos()+vec(0,0,owner():height()/2)+vec(250,0,0):rotateAroundAxis(vec(0,0,1),owner():eyeAngles():yaw()),250,AttackDamageValues["atk_rapid_slash",number])
                         damageAreaSphere(DamageData)
                         
                         owner():plyApplyForce(ang(0,owner():eyeAngles():yaw(),0):forward()*3500)
@@ -798,7 +823,7 @@ if(first()){
                         
                         CoolDown=1
                         DamageFrame=0
-                        DamageData=table(owner():pos()+vec(0,0,owner():height()/2)+vec(50,0,0):rotateAroundAxis(vec(0,0,1),owner():eyeAngles():yaw()),vec(55,55,500),200)
+                        DamageData=table(owner():pos()+vec(0,0,owner():height()/2)+vec(50,0,0):rotateAroundAxis(vec(0,0,1),owner():eyeAngles():yaw()),vec(55,55,500),AttackDamageValues["atk_attack_force_edge_01",number])
                         damageAreaBox(DamageData)
                         
                         owner():plyApplyForce(vec(-owner():vel():x()*0.5,-owner():vel():y()*0.5,-owner():vel():z()-1500))
@@ -828,7 +853,8 @@ if(first()){
                             AirTime2=!owner():isOnGround()
                             
                             DamageFrame=3
-                            DamageData=table(owner():pos()+vec(0,0,owner():height()/2)+vec(50,0,0):rotateAroundAxis(vec(0,1,0),owner():eyeAngles():pitch()*!owner():isOnGround()):rotateAroundAxis(vec(0,0,1),owner():eyeAngles():yaw()),55,owner():isOnGround() ? 70 : 100)
+                            DamageData=table(owner():pos()+vec(0,0,owner():height()/2)+vec(50,0,0):rotateAroundAxis(vec(0,1,0),
+                            owner():eyeAngles():pitch()*!owner():isOnGround()):rotateAroundAxis(vec(0,0,1),owner():eyeAngles():yaw()),55,AttackDamageValues["atk_attack_01",number])
                             
                             swingSoundYamatoSheath()
                         }else{
@@ -842,7 +868,8 @@ if(first()){
                             AirTime2=!owner():isOnGround()
                             
                             DamageFrame=3
-                            DamageData=table(owner():pos()+vec(0,0,owner():height()/2)+vec(50,0,0):rotateAroundAxis(vec(0,1,0),owner():eyeAngles():pitch()*!owner():isOnGround()):rotateAroundAxis(vec(0,0,1),owner():eyeAngles():yaw()),55,owner():isOnGround() ? 70 : 100)
+                            DamageData=table(owner():pos()+vec(0,0,owner():height()/2)+vec(50,0,0):rotateAroundAxis(vec(0,1,0),
+                            owner():eyeAngles():pitch()*!owner():isOnGround()):rotateAroundAxis(vec(0,0,1),owner():eyeAngles():yaw()),55,AttackDamageValues["atk_attack_04",number])
                             
                             owner():plyApplyForce(vec(-owner():vel():x()*0.25,-owner():vel():y()*0.25,-owner():vel():z()+200*AirTime))
                             
@@ -872,7 +899,8 @@ if(first()){
                             
                             CoolDown=1
                             DamageFrame=3
-                            DamageData=table(owner():pos()+vec(0,0,owner():height()/2)+vec(50,0,0):rotateAroundAxis(vec(0,1,0),owner():eyeAngles():pitch()*!owner():isOnGround()):rotateAroundAxis(vec(0,0,1),owner():eyeAngles():yaw()),65,200)
+                            DamageData=table(owner():pos()+vec(0,0,owner():height()/2)+vec(50,0,0):rotateAroundAxis(vec(0,1,0),
+                            owner():eyeAngles():pitch()*!owner():isOnGround()):rotateAroundAxis(vec(0,0,1),owner():eyeAngles():yaw()),65,AttackDamageValues["atk_attack_03",number])
                             
                             ApplyForce=UpwardForce*!owner():isOnGround()
                             
@@ -895,7 +923,8 @@ if(first()){
                             
                             CoolDown=1.5
                             DamageFrame=3
-                            DamageData=table(owner():pos()+vec(0,0,owner():height()/2)+vec(50,0,0):rotateAroundAxis(vec(0,1,0),owner():eyeAngles():pitch()*!owner():isOnGround()):rotateAroundAxis(vec(0,0,1),owner():eyeAngles():yaw()),120,230)
+                            DamageData=table(owner():pos()+vec(0,0,owner():height()/2)+vec(50,0,0):rotateAroundAxis(vec(0,1,0),
+                            owner():eyeAngles():pitch()*!owner():isOnGround()):rotateAroundAxis(vec(0,0,1),owner():eyeAngles():yaw()),120,AttackDamageValues["atk_aerial_rave",number])
                             
                             ApplyForce=UpwardForce*!owner():isOnGround()
                             
@@ -918,7 +947,8 @@ if(first()){
                                 
                                 CoolDown=1
                                 DamageFrame=0
-                                DamageData=table(owner():pos()+vec(0,0,owner():height()/2)+vec(50,0,50*owner():isOnGround()):rotateAroundAxis(vec(0,1,0),owner():eyeAngles():pitch()*!owner():isOnGround()):rotateAroundAxis(vec(0,0,1),owner():eyeAngles():yaw()),vec(55,55,125),160)
+                                DamageData=table(owner():pos()+vec(0,0,owner():height()/2)+vec(50,0,50*owner():isOnGround()):rotateAroundAxis(vec(0,1,0),
+                                owner():eyeAngles():pitch()*!owner():isOnGround()):rotateAroundAxis(vec(0,0,1),owner():eyeAngles():yaw()),vec(55,55,125),AttackDamageValues["atk_attack_force_edge_02",number])
                                 damageAreaBox(DamageData)
                                 
                                 ApplyForce=UpwardForce*!owner():isOnGround()
@@ -947,7 +977,8 @@ if(first()){
                                 CoolDown=1
                                 
                                 DamageFrame=3
-                                DamageData=table(owner():pos()+vec(0,0,owner():height()/2)+vec(50,0,0):rotateAroundAxis(vec(0,1,0),owner():eyeAngles():pitch()*!owner():isOnGround()):rotateAroundAxis(vec(0,0,1),owner():eyeAngles():yaw()),55,200)
+                                DamageData=table(owner():pos()+vec(0,0,owner():height()/2)+vec(50,0,0):rotateAroundAxis(vec(0,1,0),
+                                owner():eyeAngles():pitch()*!owner():isOnGround()):rotateAroundAxis(vec(0,0,1),owner():eyeAngles():yaw()),55,AttackDamageValues["atk_attack_force_edge_01",number])
                                 
                                 swingSoundForceEdge()
                             }
@@ -1048,7 +1079,7 @@ for(I=1,5){
     if(TargetCutOrb==1){
         holoPos(100*Index,owner():pos()-vec(0,0,5000))
     }else{
-        damageAreaSphere(table(holoEntity(100*Index):pos(),60,150,holoEntity(100*Index)))
+        damageAreaSphere(table(holoEntity(100*Index):pos(),60,AttackDamageValues["atk_judgement_cut",number],holoEntity(100*Index)))
     }
     holoScale(100*Index,vec(5*sin((JudgementCutOrbs[Index,number]+0.2)*180)/5))
     for(I2=102,104){
@@ -1071,8 +1102,8 @@ if(clk("canTaunt")){
     CanTaunt=1
 }
 SummonedSwordButton=owner():keyUse()
-Mouse1=owner():keyAttack1()*(owner():weapon():type()=="none")
-Mouse2=owner():keyAttack2()*(owner():weapon():type()=="none")
+Mouse1=owner():keyAttack1()*(owner():weapon():type()==SWEPOVERRIDE)
+Mouse2=owner():keyAttack2()*(owner():weapon():type()==SWEPOVERRIDE)
 
 if(changed(Shift)|changed(JudgementCut)|changed(AnimationData!=Animations["idle",table])){
     owner():plySetJumpPower(Shift*!JudgementCut ? 0 : 500)
@@ -1296,7 +1327,7 @@ event tick(){
                 SummonedSwords[I,table][2,number]=1
                 owner():emitSound("physics/surfaces/tile_impact_bullet4.wav",50,100)
                 holoPos(holoIndex(BladeEnt),R:pos())
-                damageAreaSphere(table(BladeEnt:pos(),25,90,BladeEnt))
+                damageAreaSphere(table(BladeEnt:pos(),25,AttackDamageValues["atk_phantom_sword",number],BladeEnt))
             }
         }
     }
