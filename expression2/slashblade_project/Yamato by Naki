@@ -1,10 +1,11 @@
 @name SlashBlade_Project/Yamato by Naki
-@persist [AnimationData AnimationDataName Animations Sounds Colors AttackDamageValues]:table SWEPOVERRIDE:string AttackType NormalSProps HasForceEdge DodgeCounter UpwardForce ApplyForce Frame FrameTime Sheath Sheathing AnimationTime FrameCount AnimationSpeedMult W S Shift CoolDown JudgementCut JudgementCutVal JudgementCutCount BlockAttack JudgementCutOrbs:table Count CurrentFrameTime AirTime AirTime2 DamageFrame DamageData:table HealBlock SummonedSwords:table SummonedSwordDelay SummonedSwordFlip BladeIndexTest CanDoubleJump CanTaunt Dead EndAttack AutoNext
+@persist [AnimationData AnimationDataName Animations Sounds Colors AttackDamageValues]:table SWEPOVERRIDE:string AutoHeal BlockHeal AttackType NormalSProps HasForceEdge DodgeCounter UpwardForce ApplyForce Frame FrameTime Sheath Sheathing AnimationTime FrameCount AnimationSpeedMult W S Shift CoolDown JudgementCut JudgementCutVal JudgementCutCount BlockAttack JudgementCutOrbs:table Count CurrentFrameTime AirTime AirTime2 DamageFrame DamageData:table HealBlock SummonedSwords:table SummonedSwordDelay SummonedSwordFlip BladeIndexTest CanDoubleJump CanTaunt Dead EndAttack AutoNext
 @trigger none
 if(dupefinished()){reset()}
 if(first()){
     
-    SWEPOVERRIDE = "none"
+    SWEPOVERRIDE = "weapon_empty_hands"
+    AutoHeal = 1
     
     HasForceEdge=1
     NormalSProps=1
@@ -785,6 +786,7 @@ if(first()){
                             findInSphere(DamageData[1,vector],75)
                             foreach(_,E:entity=findToArray()){
                                 E:plyApplyForce(vec(-E:vel():x()*0.5,-E:vel():y()*0.5,-E:vel():z()+700))
+                                E:applyForce(vec(-E:vel():x()*0.5,-E:vel():y()*0.5,-E:vel():z()+700))
                             }
                             grabWeaponSound()
                         }
@@ -836,6 +838,7 @@ if(first()){
                         findInSphere(DamageData[1,vector],125)
                         foreach(_,E:entity=findToArray()){
                             E:plyApplyForce(vec(-E:vel():x()*0.5,-E:vel():y()*0.5,-E:vel():z()-1500))
+                            E:applyForce(vec(-E:vel():x()*0.5,-E:vel():y()*0.5,-E:vel():z()-1500))
                         }
                         
                         grabWeaponSound()
@@ -1132,6 +1135,7 @@ event damage(Victim:entity, Damage:damage) {
         if(Damage:isFallDamage()){
             owner():plySetHealth(owner():health()+Damage:getDamage())
         }else{
+            BlockHeal=curtime()
             if(Shift&(AnimationData==Animations["idle",table])){
                 owner():emitSound("weapons/katana/katana_impact_world2.wav",50,100)
             }else{
@@ -1225,7 +1229,13 @@ if(!JudgementCut){
 if(!Mouse1){
     BlockAttack=0
 }
-
+if(AutoHeal){
+    if(curtime()-BlockHeal>5){
+        if(owner():health()<owner():maxHealth()){
+            owner():plySetHealth(clamp(owner():health()+1,0,owner():maxHealth()))
+        }
+    }
+}
 for(I=1,SummonedSwords:count()){
     BladeData=SummonedSwords[I,table]
     BladeEnt=BladeData[1,entity]
