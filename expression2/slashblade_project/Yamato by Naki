@@ -4,7 +4,7 @@
 if(dupefinished()){reset()}
 if(first()){
     
-    SWEPOVERRIDE = "weapon_empty_hands"
+    SWEPOVERRIDE = "none"
     AutoHeal = 1
     
     HasForceEdge=1
@@ -12,22 +12,22 @@ if(first()){
     
     #Damage Values
     AttackDamageValues=table()
-    AttackDamageValues["atk_attack_01",number]=70
-    AttackDamageValues["atk_attack_02",number]=70
-    AttackDamageValues["atk_attack_03",number]=200
-    AttackDamageValues["atk_attack_04",number]=100
-    AttackDamageValues["atk_attack_05",number]=100
-    AttackDamageValues["atk_attack_06",number]=100
-    AttackDamageValues["atk_attack_07",number]=100
+    AttackDamageValues["atk_attack_01",number]=125
+    AttackDamageValues["atk_attack_02",number]=125
+    AttackDamageValues["atk_attack_03",number]=300
+    AttackDamageValues["atk_attack_04",number]=200
+    AttackDamageValues["atk_attack_05",number]=200
+    AttackDamageValues["atk_attack_06",number]=200
+    AttackDamageValues["atk_attack_07",number]=200
     
-    AttackDamageValues["atk_aerial_rave",number]=250
-    AttackDamageValues["atk_rapid_slash",number]=150
+    AttackDamageValues["atk_aerial_rave",number]=350
+    AttackDamageValues["atk_rapid_slash",number]=250
     
-    AttackDamageValues["atk_attack_force_edge_01",number]=200
-    AttackDamageValues["atk_attack_force_edge_02",number]=160
+    AttackDamageValues["atk_attack_force_edge_01",number]=350
+    AttackDamageValues["atk_attack_force_edge_02",number]=250
     
     AttackDamageValues["atk_judgement_cut",number]=150
-    AttackDamageValues["atk_phantom_sword",number]=70
+    AttackDamageValues["atk_phantom_sword",number]=100
     
     #Sounds
     Sounds=table()
@@ -391,6 +391,7 @@ if(first()){
     for(I=1,9){
         holoScale(I,vec(0.2)*ShowBones)
     }
+    owner():setMaterial(ShowBones ? "null" : "")
     Animations=table()
     Animations["idle",table]=ANIM_IDLE_01
     Animations["atk_attack_01",table]=ANIM_ATTACK_01
@@ -1107,7 +1108,6 @@ if(clk("canTaunt")){
 SummonedSwordButton=owner():keyUse()
 Mouse1=owner():keyAttack1()*(owner():weapon():type()==SWEPOVERRIDE)
 Mouse2=owner():keyAttack2()*(owner():weapon():type()==SWEPOVERRIDE)
-
 if(changed(Shift)|changed(JudgementCut)|changed(AnimationData!=Animations["idle",table])){
     owner():plySetJumpPower(Shift*!JudgementCut ? 0 : 500)
     owner():plyGod(Shift*!JudgementCut&(AnimationData==Animations["idle",table]))
